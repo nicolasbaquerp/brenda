@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Ser mi San Valentín?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #yesButton {
+            background-color: #ff69b4;
+            color: white;
+        }
+        #noButton {
+            background-color: #d3d3d3;
+            color: #333;
+        }
+        #noButton.active {
+            background-color: #ff4d4d;
+        }
+        #noButton.inactive {
+            background-color: #aaa;
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+        .confetti span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff69b4;
+            animation: fall 2s infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Brenda Ortega, ¿quieres ser mi San Valentín?</h1>
+    <button id="yesButton">Sí, mi vida</button>
+    <button id="noButton">No</button>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<script>
+    let noButton = document.getElementById("noButton");
+    let yesButton = document.getElementById("yesButton");
+    let confetti = document.getElementById("confetti");
+    let clickCount = 0;
+
+    yesButton.addEventListener("click", function() {
+        showConfetti();
+    });
+
+    noButton.addEventListener("click", function() {
+        clickCount++;
+        if (clickCount === 1) {
+            noButton.innerHTML = "Pecu";
+        } else if (clickCount === 2) {
+            noButton.innerHTML = "No seas mala";
+        } else if (clickCount === 3) {
+            noButton.innerHTML = "No me importa, igual lo serás";
+        } else if (clickCount === 4) {
+            noButton.innerHTML = "Ya sabes";
+            noButton.classList.add('inactive');
+        }
+        noButton.classList.add('active');
+    });
+
+    function showConfetti() {
+        confetti.style.display = 'block';
+        createConfetti();
+    }
+
+    function createConfetti() {
+        for (let i = 0; i < 100; i++) {
+            let confettiPiece = document.createElement("span");
+            confettiPiece.style.left = Math.random() * 100 + "%";
+            confettiPiece.style.animationDuration = (Math.random() * 1 + 1) + "s";
+            confettiPiece.style.animationDelay = Math.random() * 2 + "s";
+            confetti.appendChild(confettiPiece);
+        }
+    }
+</script>
+
+</body>
+</html>
